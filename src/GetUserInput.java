@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
-public class GetUserInput extends GameManager{
+public class GetUserInput {
 
-    public int getNumberOfPlayers() {
+    public int getNumberOfPlayers(int MIN_PLAYERS, int MAX_PLAYERS) {
 
         System.out.print("Select the number of players (2-6): ");
 
@@ -11,7 +11,7 @@ public class GetUserInput extends GameManager{
             String userInput = sc.nextLine();
             try {
                 int userNumInput = Integer.parseInt(userInput);
-                if (userNumInput >= minPlayers && userNumInput <= maxPlayers) {
+                if (userNumInput >= MIN_PLAYERS && userNumInput <= MAX_PLAYERS) {
                     return userNumInput;
                 } else {
                     System.out.println("Invalid input. Please enter 2-6 players: ");

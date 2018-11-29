@@ -2,18 +2,7 @@ import java.util.List;
 
 public class PrintScores {
 
-    private List<Player> players;
-    private int round;
-    private int numberOfRounds;
-
-    public PrintScores(List<Player> players, int round, int numberOfRounds) {
-        this.players = players;
-        this.round = round;
-        this.numberOfRounds = numberOfRounds;
-    }
-
-
-    public void printRoundScores() {
+    public void printRoundScores(List<Player> players, int round) {
         System.out.println("SCORES FOR ROUND " + round + ":");
         System.out.println("-------------------");
         for (Player p : players) {
@@ -21,7 +10,7 @@ public class PrintScores {
         }
     }
 
-    public void printTotalScores() {
+    public void printTotalScores(List<Player> players, int round, int numberOfRounds) {
 
         // start showing total scores after round 1 onwards
         if (round > 1 & round != numberOfRounds) {

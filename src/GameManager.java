@@ -3,81 +3,78 @@ import java.util.List;
 
 public class GameManager {
 
-    private Deck deck;
-    protected List<Player> players;
+    private final Deck deck = new Deck();
+    private final List<Player> players = new ArrayList<>();
 
-    protected final int minPlayers = 2;
-    protected final int maxPlayers = 6;
-    private int handSize = 2;
+    private final int MIN_PLAYERS = 2;
+    private final int MAX_PLAYERS = 6;
+    private final int HAND_SIZE = 2;
+
     private int numberOfRounds;
     private int numberOfPlayers;
 
     public static void main(String[] args) {
         GameManager game = new GameManager();
-        game.setup();
+        game.setupGame();
     }
 
-    // GameManager constructor
-    public GameManager() {
-        deck = new Deck();
-        players = new ArrayList<>();
-    }
-
-    private void setup() {
+    private void setupGame() {
 
         GetUserInput userInput = new GetUserInput();
+        numberOfPlayers = userInput.getNumberOfPlayers(MIN_PLAYERS, MAX_PLAYERS);
+        numberOfRounds = userInput.getNumberOfRounds();
 
-        numberOfPlayers = userInput.getNumberOfPlayers();
         for (int i = 1; i <= numberOfPlayers; i++) {
             players.add(new Player(i));
         }
-        numberOfRounds = userInput.getNumberOfRounds();
 
-        rounds();
+        startGame();
     }
 
-    private void rounds() {
+    private void startGame() {
 
         int round = 1;
+
+        List<Card> orderedDeck = deck.createDeck();
 
         while (round <= numberOfRounds) {
 
             deck.createDeck();
 
-            List<Card> shuffled = deck.shuffleDeck();
+            deck.shuffleDeck(orderedDeck);
 
             printRoundIntro(round);
 
             // deal cards to each player & calculate their hand rank & best card
-            DealCards dc = new DealCards(players);
-            dc.dealCards(shuffled, handSize);
+            DealCards dc = new DealCards();
+            dc.dealCards(players, orderedDeck, HAND_SIZE);
 
             for (Player p : players) {
-                CalculatePlayerScore calc = new CalculatePlayerScore(p);
-                calc.playerHandRank();
+                CalculatePlayerScore calc = new CalculatePlayerScore();
+                calc.playerHandRank(p);
             }
 
-            PrintPlayerHand ppc = new PrintPlayerHand(players);
-            ppc.printCards();
+            PrintPlayerHand ppc = new PrintPlayerHand();
+            ppc.printCards(players);
 
-            printSeparator();
+            printSectionSeparator();
 
             // compare each players hands
-            ComparePlayerScores comp = new ComparePlayerScores(players);
-            comp.assignRoundPoints();
+            ComparePlayerScores comp = new ComparePlayerScores();
+            comp.assignRoundPoints(players);
 
             // print round and total scores to console
-            PrintScores ps = new PrintScores(players, round, numberOfRounds);
-            ps.printRoundScores();
-            printSeparator();
-            ps.printTotalScores();
+            PrintScores ps = new PrintScores();
+            ps.printRoundScores(players, round);
+            printSectionSeparator();
+            ps.printTotalScores(players, round, numberOfRounds);
 
-            // increment rounds variable by 1
+            // increment startGame variable by 1
             round++;
         }
 
-        DetermineOverallWinner dow = new DetermineOverallWinner(players);
-        dow.outputFinalStandings();
+        DetermineOverallWinner dow = new DetermineOverallWinner();
+        dow.outputFinalStandings(players);
     }
 
     private void printRoundIntro(int round) {
@@ -87,7 +84,7 @@ public class GameManager {
     }
 
     // outputs a unicode circle as a separator
-    private void printSeparator() {
+    private void printSectionSeparator() {
         System.out.println("\u25cf");
     }
 

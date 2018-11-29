@@ -2,13 +2,7 @@ import java.util.List;
 
 public class PrintPlayerHand {
 
-    private List<Player> players;
-
-    public PrintPlayerHand(List<Player> players) {
-        this.players = players;
-    }
-
-    public void printCards() {
+    public void printCards(List<Player> players) {
 
         for (Player p : players) {
             System.out.print("Player " + p.getPlayerNumber() + "'s hand: ");

@@ -3,13 +3,7 @@ import java.util.TreeSet;
 
 public class DetermineOverallWinner {
 
-    private List<Player> players;
-
-    public DetermineOverallWinner(List<Player> players) {
-        this.players = players;
-    }
-
-    public void outputFinalStandings() {
+    public void outputFinalStandings(List<Player> players) {
 
         TreeSet<Integer> ascendingScores = new TreeSet<>();
         TreeSet<Integer> descendingScores;
@@ -33,6 +27,7 @@ public class DetermineOverallWinner {
                     System.out.print(place + ": Player " + p.getPlayerNumber() + " (" + p.getPlayerTotalScore() + " points)");
                     count++;
                     if (place == 1) {
+                        // prints WINNER + a unicode crown
                         System.out.println(" WINNER " + "\u2654");
                     } else {
                         System.out.println();

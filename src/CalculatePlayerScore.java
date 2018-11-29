@@ -1,12 +1,6 @@
 public class CalculatePlayerScore {
 
-    private Player player;
-
-    public CalculatePlayerScore(Player player) {
-        this.player = player;
-    }
-
-    public void playerHandRank() {
+    public void playerHandRank(Player player) {
 
         Card[] playerHand = player.getPlayerHand();
         Card card1 = playerHand[0];

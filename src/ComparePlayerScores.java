@@ -4,13 +4,7 @@ import java.util.List;
 
 public class ComparePlayerScores {
 
-    private List<Player> players;
-
-    public ComparePlayerScores(List<Player> players) {
-        this.players = players;
-    }
-
-    public void assignRoundPoints() {
+    public void assignRoundPoints(List<Player> players) {
 
         Comparator<Player> playerComparator = new Comparator<Player>() {
             @Override

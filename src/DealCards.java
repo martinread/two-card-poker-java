@@ -2,13 +2,7 @@ import java.util.List;
 
 public class DealCards {
 
-    private List<Player> players;
-
-    public DealCards(List<Player> players) {
-        this.players = players;
-    }
-
-    public void dealCards(List<Card> shuffled, int handSize) {
+    public void dealCards(List<Player> players, List<Card> shuffled, int handSize) {
 
         for (Player p : players) {
 
